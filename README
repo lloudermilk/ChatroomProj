@@ -1,0 +1,7 @@
+To use: 
+compile server first: "gcc server.c server"
+run with one argument, a port: "./server 4000"
+open new terminal window
+compile client: "gcc client.c client"
+run with two arguments, hostname and port from server: "./client localhost 4000"
+yay!
