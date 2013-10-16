@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     struct sockaddr_in serv_addr;
     struct hostent *server;
     
-    //Buffer to hold message
-    char msgbuff[256];
+    //Message
+    char msg[256];
     
     //Make sure user included the right command line args
     if (argc < 3) {
@@ -66,18 +66,18 @@ int main(int argc, char *argv[])
         error("ERROR connecting");
     
     cout << "Please enter the message: ";
-    bzero(msgbuff,256);
-    cin >> msgbuff;
-    
+    cin >> msg;
+    string msgString(msg);
     //Do the message writing
-    n = write(sockfd,msgbuff,strlen(msgbuff));
+    n = write(sockfd,msg,strlen(msg));
     if (n < 0)
         error("ERROR writing to socket");
-    bzero(msgbuff,256);
-    n = read(sockfd,msgbuff,255);
+    bzero(msg,256);
+    n = read(sockfd,msg,255);
     if (n < 0)
         error("ERROR reading from socket");
-    cout << msgbuff;
+    cout << msg;
+    
     close(sockfd);
     return 0;
 }

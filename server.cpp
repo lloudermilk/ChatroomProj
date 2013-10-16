@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     int sockfd, newsockfd, portno;
     socklen_t clilen;
-    char buffer[256];
+    char msg[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
     if (argc < 2) {
@@ -37,21 +37,18 @@ int main(int argc, char *argv[])
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
     serv_addr.sin_port = htons(portno);
-    if (bind(sockfd, (struct sockaddr *) &serv_addr,
-             sizeof(serv_addr)) < 0)
+    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         error("ERROR on binding");
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
-    newsockfd = accept(sockfd,
-                       (struct sockaddr *) &cli_addr,
-                       &clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
     if (newsockfd < 0)
         error("ERROR on accept");
-    bzero(buffer,256);
-    n = read(newsockfd,buffer,255);
+    bzero(msg,256);
+    n = read(newsockfd,msg,255);
     if (n < 0) error("ERROR reading from socket");
-    cout << "Here is the message:" << buffer << endl;
-    n = write(newsockfd,"I got your message\n",20);
+    cout << "Here is the message: " << msg << endl;;
+    n = write(newsockfd,"I got your message\n",18);
     if (n < 0) error("ERROR writing to socket");
     close(newsockfd);
     close(sockfd);
