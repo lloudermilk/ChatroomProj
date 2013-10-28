@@ -13,16 +13,15 @@ class Echo(protocol.Protocol):
 	
 	def dataReceived(self, data):
 		"As soon as any data is received, write it back."
-		if hasattr(self, 'nickname'):
-			print self.nickname
-		else:
+		if not hasattr(self, 'nickname'):
 			self.nickname = "Anonymous"
 
 		print "["+self.nickname+"]", data
 		if data[0] == "\\":
 			command = data.split(" ")
-			print "Command entered", command[0]
+			print "Command entered", command[0], "by", self.nickname
 			if command[0] == "\\nick":
+				print "["+self.nickname+"] is now known as:", command[1]
 				self.nickname = command[1]
 				self.transport.write("You are now known as: " + self.nickname)
 		else:
