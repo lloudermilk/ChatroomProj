@@ -8,20 +8,22 @@ An example client. Run simpleserv.py first before running this.
 """
 
 from twisted.internet import reactor, protocol
-
-
 # a client protocol
-
 class EchoClient(protocol.Protocol):
     """Once connected, send a message, then print the result."""
     
     def connectionMade(self):
-        self.transport.write("hello, world!")
+        self.transport.write("Connection established")
     
     def dataReceived(self, data):
-        "As soon as any data is received, write it back."
-        print "Server said:", data
-        self.transport.loseConnection()
+		"As soon as any data is received, write it back."
+		print "Server said: ", data
+		message = raw_input("Message to the server: ")
+		if message != "exit":
+			self.transport.write(message)
+		else: 
+			print "exiting..."
+			self.transport.loseConnection()
     
     def connectionLost(self, reason):
         print "connection lost"
@@ -40,9 +42,11 @@ class EchoFactory(protocol.ClientFactory):
 
 # this connects the protocol to a server runing on port 8000
 def main():
-    f = EchoFactory()
-    reactor.connectTCP("localhost", 8000, f)
-    reactor.run()
+	
+	f = EchoFactory()
+	reactor.connectTCP("localhost", 8000, f)
+	reactor.run()
+   
 
 # this only runs if the module was *not* imported
 if __name__ == '__main__':
