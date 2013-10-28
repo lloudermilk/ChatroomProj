@@ -66,8 +66,10 @@ int main(int argc, char *argv[])
         error("ERROR connecting");
     
     cout << "Please enter the message: ";
-    cin >> msg;
-    string msgString(msg);
+    
+    bzero(msg,256);
+    fgets(msg,255,stdin);
+    
     //Do the message writing
     n = write(sockfd,msg,strlen(msg));
     if (n < 0)
