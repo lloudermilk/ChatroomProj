@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
     
-    //bzer()sets the first n bytes of the area starting at s to zero
+    //bzero()sets the first n bytes of the area starting at s to zero
     bzero((char *) &serv_addr, sizeof(serv_addr));
     //sin_family is the same address family we used for socket()
     serv_addr.sin_family = AF_INET;
@@ -67,7 +67,11 @@ int main(int argc, char *argv[])
     
     cout << "Please enter the message: ";
     
+    //make sure msg is empty
     bzero(msg,256);
+    //char * fgets ( char * str, int num, FILE * stream );
+    //reads chars from stream and stores as a C string into str until num-1 chars
+    //have been read or a newline/end-of-file is reached, whichever happens first.
     fgets(msg,255,stdin);
     
     //Do the message writing
