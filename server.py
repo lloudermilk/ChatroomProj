@@ -7,18 +7,24 @@ from twisted.internet import reactor, protocol
 
 
 class Echo(protocol.Protocol):
-    """This is just about the simplest possible protocol"""
-    
-    def dataReceived(self, data):
-        "As soon as any data is received, write it back."
-        if hasattr(self, 'nickname'):
-        	print self.nickname
-        print "Got Message", data
-        if data[0] == "\\":
+	"""This is just about the simplest possible protocol"""
+	
+	def dataReceived(self, data):
+		"As soon as any data is received, write it back."
+		if hasattr(self, 'nickname'):
+			print self.nickname
+		else:
+			self.nickname = "Anonymous"
+
+		print "["+self.nickname+"]", data
+		if data[0] == "\\":
 			command = data.split(" ")
 			print "Command entered", command[0]
-			self.nickname = command[1]
-        self.transport.write("You said " + data)
+			if command[0] == "\\nick":
+				self.nickname = command[1]
+				self.transport.write("You are now known as: " + self.nickname)
+		else:
+			self.transport.write("["+self.nickname+"] "+data)
 
 
 def main():
