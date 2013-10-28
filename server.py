@@ -11,8 +11,14 @@ class Echo(protocol.Protocol):
     
     def dataReceived(self, data):
         "As soon as any data is received, write it back."
+        if hasattr(self, 'nickname'):
+        	print self.nickname
         print "Got Message", data
-        self.transport.write("You said" + data)
+        if data[0] == "\\":
+			command = data.split(" ")
+			print "Command entered", command[0]
+			self.nickname = command[1]
+        self.transport.write("You said " + data)
 
 
 def main():
