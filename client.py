@@ -1,6 +1,10 @@
+#  CS450 - OPERATING SYSTEMS
+#  CHAT PROJECT - PHASE 1
+#  Monday, October 28, 2013
 
-# Copyright (c) Twisted Matrix Laboratories.
-# See LICENSE for details.
+#  Team Members:  Eric Wooley, Lauryn Loudermilk, David Wells, Tandra Felly
+
+
 
 
 """
