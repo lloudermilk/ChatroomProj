@@ -12,7 +12,7 @@ class Echo(protocol.Protocol):
     def dataReceived(self, data):
         "As soon as any data is received, write it back."
         print "Got Message", data
-        self.transport.write("You said",data)
+        self.transport.write("You said" + data)
 
 
 def main():
