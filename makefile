@@ -6,8 +6,8 @@ client: client.out
 
 all: server.out client.out
 
-server.out:
+server.out: server.cpp
 	g++ server.cpp -o server.out
 
-client.out:
+client.out: client.cpp
 	g++ client.cpp -o client.out
