@@ -1,7 +1,8 @@
-Original Code:
-http://www.linuxhowtos.org/data/6/server.c
-http://www.linuxhowtos.org/data/6/client.c
+INSTRUCTIONS:
+1) open terminal window in directory of python files
+2) enter the command “python server.py”
+3) open a second terminal window in the directory of the python files
+4) enter the command “python client.py”
 
-To use: 
-1) “make server”
-2) “make client”
+COMMANDS:
+- To change your nickname type in the command “\nick [nickname]”

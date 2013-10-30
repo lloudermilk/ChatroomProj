@@ -1,15 +1,7 @@
 #  CS450 - OPERATING SYSTEMS
 #  CHAT PROJECT - PHASE 1
 #  Monday, October 28, 2013
-
 #  Team Members:  Eric Wooley, Lauryn Loudermilk, David Wells, Tandra Felly
-
-
-
-
-"""
-An example client. Run simpleserv.py first before running this.
-"""
 
 from twisted.internet import reactor, protocol
 # a client protocol
@@ -43,14 +35,12 @@ class EchoFactory(protocol.ClientFactory):
         print "Connection lost - goodbye!"
         reactor.stop()
 
-
 # this connects the protocol to a server runing on port 8000
 def main():
 	
 	f = EchoFactory()
 	reactor.connectTCP("localhost", 8000, f)
 	reactor.run()
-   
 
 # this only runs if the module was *not* imported
 if __name__ == '__main__':

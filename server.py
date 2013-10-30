@@ -1,15 +1,11 @@
 #  CS450 - OPERATING SYSTEMS
 #  CHAT PROJECT - PHASE 1
 #  Monday, October 28, 2013
-
 #  Team Members:  Eric Wooley, Lauryn Loudermilk, David Wells, Tandra Felly
-
 
 from twisted.internet import reactor, protocol
 
-
 class Echo(protocol.Protocol):
-	"""This is just about the simplest possible protocol"""
 	
 	def dataReceived(self, data):
 		"As soon as any data is received, write it back."
@@ -26,7 +22,6 @@ class Echo(protocol.Protocol):
 				self.transport.write("You are now known as: " + self.nickname)
 		else:
 			self.transport.write("["+self.nickname+"] "+data)
-
 
 def main():
     """This runs the protocol on port 8000"""
