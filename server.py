@@ -5,23 +5,27 @@
 
 from twisted.internet import reactor, protocol
 
+clients = []
 class Echo(protocol.Protocol):
 	
-	def dataReceived(self, data):
-		"As soon as any data is received, write it back."
-		if not hasattr(self, 'nickname'):
-			self.nickname = "Anonymous"
+	def connectionMade(self):
+		print "New Connection Made"
+		self.nickname = "Anonymous-" + str(len(clients) + 1)
+		clients.append(self)
 
+	def dataReceived(self, data):
 		print "["+self.nickname+"]", data
 		if data[0] == "\\":
 			command = data.split(" ")
 			print "Command entered", command[0], "by", self.nickname
 			if command[0] == "\\nick":
 				print "["+self.nickname+"] is now known as:", command[1]
+				for i in range(len(clients)):
+					clients[i].transport.write("["+self.nickname+"] is now known as: "+ command[1])
 				self.nickname = command[1]
-				self.transport.write("You are now known as: " + self.nickname)
 		else:
-			self.transport.write("["+self.nickname+"] "+data)
+			for i in range(len(clients)):
+				clients[i].transport.write("["+self.nickname+"] "+data)
 
 def main():
     """This runs the protocol on port 8000"""
